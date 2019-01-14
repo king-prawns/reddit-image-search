@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/dist/js/app.js"></script>
+  </head>
+
+  <body>
+
+    <test-fixture id="component">
+      <template>
+        <photo-thumb></photo-thumb>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<photo-thumb>', () => {
+        let component;
+
+        setup(() => {
+          component = fixture('component');
+        });
+
+        test('default Properties', (done) => {
+          assert.isUndefined(component.title);
+          assert.isUndefined(component.preview);
+          assert.isUndefined(component.url);
+          assert.isUndefined(component.permalink);
+          assert.isUndefined(component.author);
+          assert.isUndefined(component.thumbnail);
+          assert.isUndefined(component.isImage);
+          assert.isUndefined(component.delay);
+          assert.isUndefined(component.loaded);
+
+          flush(() => {
+            const content = component.querySelector('.content');
+            const img = component.querySelector('img');
+            const overlay = component.querySelector('.overlay span');
+
+            assert.isFalse(component.hasAttribute('loaded'));
+            assert.isNotNull(content);
+            assert.isNotNull(img);
+            assert.isNotNull(overlay);
+            assert.equal(overlay.textContent, 'open');
+
+            done();
+          });
+        });
+
+        test('set loaded', (done) => {
+          component.loaded = true;
+
+          flush(() => {
+            assert.isTrue(component.hasAttribute('loaded'));
+
+            done();
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>

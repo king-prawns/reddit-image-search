@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/dist/js/app.js"></script>
+  </head>
+
+  <body>
+
+    <test-fixture id="component">
+      <template>
+        <search-bar></search-bar>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<search-bar>', () => {
+        let component;
+
+        setup(() => {
+          component = fixture('component');
+        });
+
+        test('default Properties', (done) => {
+          assert.isUndefined(component.search);
+          assert.isUndefined(component.disabled);
+
+          flush(() => {
+            const search = component.querySelector('.search');
+            const input = component.querySelector('input');
+            const btn = component.querySelector('button');
+
+            assert.isNotNull(search);
+            assert.isNotNull(input);
+            assert.isFalse(input.disabled);
+            assert.isNotNull(btn);
+            assert.isFalse(btn.disabled);
+
+            done();
+          });
+        });
+
+        test('set search', (done) => {
+          component.search = 'food';
+
+          flush(() => {
+            assert.equal(component.getAttribute('search'), 'food');
+
+            done();
+          });
+        });
+
+        test('set disabled T', (done) => {
+          component.disabled = 'food';
+
+          flush(() => {
+            const input = component.querySelector('input');
+            const btn = component.querySelector('button');
+
+            assert.isTrue(input.disabled);
+            assert.isTrue(btn.disabled);
+
+            done();
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>

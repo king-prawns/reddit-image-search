@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/dist/js/app.js"></script>
+  </head>
+
+  <body>
+
+    <test-fixture id="component">
+      <template>
+        <photo-details></photo-details>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<photo-details>', () => {
+        let component;
+        let onImageLoad = false;
+
+        setup(() => {
+          component = fixture('component');
+
+          stub('photo-details', {
+            imageLoad: function() {
+              onImageLoad = true;
+            }
+          });
+        });
+
+        test('default Properties', (done) => {
+          assert.isUndefined(component.show);
+
+          flush(() => {
+            const modal = component.querySelector('.modal');
+
+            assert.isNull(modal);
+
+            done();
+          });
+        });
+
+        test('toggle show', (done) => {
+          component.show = true;
+
+          flush(() => {
+            const modal = component.querySelector('.modal');
+            const img = component.querySelector('img.preview');
+            const more = component.querySelector('.more');
+            const infos = component.querySelectorAll('.info');
+
+            assert.isNotNull(modal);
+            assert.isNotNull(img);
+            assert.isNotNull(more);
+            assert.equal(infos.length, 3);
+
+            component.show = false;
+
+            flush(() => {
+              const modal = component.querySelector('.modal');
+              const simplediv = component.querySelector('div');
+
+              assert.isNull(modal);
+              assert.isNotNull(simplediv);
+
+              done();
+            });
+          });
+        });
+
+        test('set properties', (done) => {
+          component.title = 'test title';
+          component.preview = 'http://exampleimg.png/';
+          component.url = 'http://exampleoriginalimg.png/';
+          component.permalink = 'https://www.google.com/';
+          component.author = 'test author';
+          component.show = true;
+
+          flush(() => {
+            const title =  component.querySelector('h3');
+            const img = component.querySelector('img.preview');
+            const originalUrl = component.querySelector('.info:nth-of-type(1) a');
+            const permalink = component.querySelector('.info:nth-of-type(2) a');
+            const author = component.querySelector('.info:nth-of-type(3) span');
+
+            assert.equal(title.textContent, 'test title');
+            assert.equal(img.src, 'http://exampleimg.png/');
+            assert.equal(originalUrl.href, 'http://exampleoriginalimg.png/');
+            assert.equal(permalink.href, 'https://www.google.com/');
+            assert.equal(author.textContent, 'test author');
+
+            done();
+          });
+        });
+
+        test('set loaded T', (done) => {
+          component.loaded = true;
+
+          flush(() => {
+            assert.isTrue(component.hasAttribute('loaded'));
+
+            done();
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>

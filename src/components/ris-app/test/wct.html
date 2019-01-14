@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/dist/js/app.js"></script>
+  </head>
+
+  <body>
+
+    <test-fixture id="component">
+      <template>
+        <ris-app></ris-app>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<ris-app>', () => {
+        let component;
+
+        setup(() => {
+          component = fixture('component');
+        });
+
+        test('default Properties', (done) => {
+          assert.equal(component.keyword, 'cats');
+          assert.isUndefined(component.error);
+
+          flush(() => {
+            const search = component.querySelector('search-bar');
+            const header = component.querySelector('header');
+            const nav = component.querySelector('nav');
+            const main = component.querySelector('main');
+            const photoDetails = component.querySelector('photo-details');
+            const photoLoader = component.querySelector('photo-loader');
+            const photoGallery = component.querySelector('photo-gallery');
+            const aside = component.querySelector('aside');
+            const footer = component.querySelector('footer');
+
+            assert.isFalse(component.hasAttribute('error'));
+            assert.isNotNull(search);
+            assert.isNotNull(header);
+            assert.isNotNull(nav);
+            assert.isNotNull(main);
+            assert.isNotNull(photoDetails);
+            assert.isNotNull(photoLoader);
+            assert.isNotNull(photoGallery);
+            assert.isNotNull(aside);
+            assert.isNotNull(footer);
+
+            done();
+          });
+        });
+
+        test('set keyword', (done) => {
+          component.keyword = 'food';
+
+          flush(() => {
+            const photoGallery = component.querySelector('photo-gallery');
+
+            assert.equal(photoGallery.photo, 'food');
+
+            done();
+          });
+        });
+
+        test('set error T', (done) => {
+          component.error = true;
+
+          flush(() => {
+            assert.isTrue(component.hasAttribute('error'));
+
+            done();
+          });
+        });
+
+        test('dispatch event', (done) => {
+          flush(() => {
+            const photoLoader = component.querySelector('photo-loader');
+            const search = component.querySelector('search-bar');
+            const photoGallery = component.querySelector('photo-gallery');
+            const photoDetails = component.querySelector('photo-details');
+
+            photoLoader.dispatchEvent(new CustomEvent('loading-photo', { detail: {loading: true}, bubbles: true }));
+            assert.isTrue(photoLoader.show);
+            assert.isTrue(search.disabled);
+
+            search.dispatchEvent(new CustomEvent('search-photo', { detail: {value: 'food'}, bubbles: true }));
+            assert.equal(component.keyword, 'food');
+
+            photoGallery.dispatchEvent(new CustomEvent('error-photo', { detail: {error: 'error text'}, bubbles: true }));
+            const photoAlert = component.querySelector('photo-alert');
+            assert.isNotNull(photoAlert);
+            assert.equal(photoAlert.message, 'error text');
+
+            photoGallery.dispatchEvent(new CustomEvent('open-photo', { detail: {
+              title: 'test title',
+              preview: 'test preview',
+              url: 'test url',
+              permalink: 'test permalink',
+              author: 'test author'
+            }, bubbles: true }));
+            assert.equal(photoDetails.title, 'test title');
+            assert.equal(photoDetails.preview, 'test preview');
+            assert.equal(photoDetails.url, 'test url');
+            assert.equal(photoDetails.permalink, 'test permalink');
+            assert.equal(photoDetails.author, 'test author');
+            assert.isTrue(photoDetails.show);
+
+
+            done();
+          });
+        })
+      });
+    </script>
+
+  </body>
+</html>

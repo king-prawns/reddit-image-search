@@ -1,0 +1,11 @@
+photo-gallery {
+  display: block;
+  padding: 10px;
+
+  & .photo-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-row: 150px;
+    grid-gap: 10px;
+  }
+}

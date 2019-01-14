@@ -1,0 +1,28 @@
+photo-loader {
+  display: block;
+
+  & .loader {
+    display: none;
+  }
+
+  & .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10%;
+    background-color: var(--white, #FFF);
+    opacity: 0.6;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+photo-loader[show] {
+  & .loader {
+    display: block;
+  }
+}
