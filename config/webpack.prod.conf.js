@@ -17,7 +17,7 @@ module.exports = merge(base, {
   // devtool : 'source-map', // remove this comment if you want JS source maps
   output : {
     path       : path.resolve(__dirname, '../dist'),
-    publicPath : '/',
+    publicPath : '',
     filename   : '[chunkhash].app.js'
   },
   optimization: {
