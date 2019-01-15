@@ -7,8 +7,8 @@ Reddit Image Search example
 
 ## Requirements
 
-- Node >= v6.x
-- Yarn >= v1.1 | NPM >= v5.0
+- Node >= v10.x
+- Yarn >= v1.1 | NPM >= v6.0
 
 ## Installation
 
