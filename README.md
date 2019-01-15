@@ -38,9 +38,6 @@ $ yarn ava
 # Runs E2E tests
 $ yarn e2e
 
-# Runs wct tests
-$ yarn wct
-
 # Runs http-server on port 8082
 $ yarn httpserver
 

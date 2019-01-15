@@ -6,10 +6,12 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true
+    node: true,
+    jest: true
   },
   globals: {
-    PRODUCTION: true
+    PRODUCTION: true,
+    fixture: true
   },
   plugins: [
     'flowtype'
