@@ -3,10 +3,10 @@
 import { Selector } from 'testcafe';
 import { scrollBottom } from '../helpers';
 
-fixture`Homepage`
+fixture`basic`
   .page`https://king-prawns.github.io/reddit-image-search/`;
 
-test('features', async (t) => {
+test('ugly test', async (t) => {
   await t
     .expect(Selector('ris-app').exists)
     .ok('ris-app still working')

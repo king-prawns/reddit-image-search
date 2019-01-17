@@ -1,49 +1,51 @@
 /* eslint no-unused-expressions: 0 */
 
 import { Selector } from 'testcafe';
+import SearchPage from '../pages/search';
+import DetailsPage from '../pages/details';
 import { scrollBottom } from '../helpers';
 
-fixture`Homepage`
-  .page`http://localhost:8082`
-  .beforeEach(async (t) => {
-    await t.maximizeWindow();
-  });
+const searchPage = new SearchPage();
+const detailsPage = new DetailsPage();
 
-test('features', async (t) => {
+fixture`advanced`
+  .page`http://localhost:8082`;
+
+test('nice test', async (t) => {
   await t
     .expect(Selector('ris-app').exists)
-    .ok('ris-app still working')
-    .expect(Selector('search-bar input').value)
-    .eql('cats', 'search-bar contains expected value')
-    .expect(Selector('photo-thumb').count)
+    .ok()
+    .expect(searchPage.searchBar.value)
+    .eql('cats')
+    .expect(searchPage.thumbnails.count)
     .eql(25)
-    .click(Selector('photo-thumb:nth-of-type(1)'))
-    .expect(Selector('photo-details').visible)
+    .click(searchPage.thumbnails.nth(0))
+    .expect(detailsPage.modal.visible)
     .ok()
-    .expect(Selector('photo-details h3').textContent)
+    .expect(detailsPage.title.textContent)
     .notEql('')
-    .expect(Selector('photo-details img').exists)
+    .expect(detailsPage.image.exists)
     .ok()
-    .click('photo-details .close')
-    .expect(Selector('photo-details').visible)
+    .click(detailsPage.closeBtn)
+    .expect(detailsPage.modal.visible)
     .notOk();
   await scrollBottom();
   await t
-    .expect(Selector('photo-thumb').count)
+    .expect(searchPage.thumbnails.count)
     .gte(25)
-    .click('search-bar input')
+    .click(searchPage.searchBar)
     .pressKey('ctrl+a')
-    .typeText('search-bar input', 'food')
-    .click('search-bar button')
-    .expect(Selector('photo-thumb').count)
-    .gte(0)
-    .hover('photo-thumb:nth-of-type(1)')
-    .expect(Selector('photo-thumb:nth-of-type(1) .overlay').visible)
+    .typeText(searchPage.searchBar, 'food')
+    .click(searchPage.searchBtn)
+    .expect(searchPage.thumbnails.count)
+    .gt(0)
+    .hover(searchPage.thumbnails.nth(0))
+    .expect(searchPage.thumbnails.nth(0).find('.overlay').visible)
     .ok()
-    .click('search-bar input')
+    .click(searchPage.searchBar)
     .pressKey('ctrl+a')
-    .typeText('search-bar input', 'rgrgtrhtrhrthtrrhtrhrthrtfdew')
-    .click('search-bar button')
-    .expect(Selector('photo-alert').exists)
+    .typeText(searchPage.searchBar, 'rgrgtrhtrhrthtrrhtrhrthrtfdew')
+    .click(searchPage.searchBtn)
+    .expect(searchPage.alert.exists)
     .ok();
 });
