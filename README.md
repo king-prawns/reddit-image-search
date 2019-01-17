@@ -8,12 +8,12 @@ Reddit Image Search example
 ## Requirements
 
 - Node >= v10.x
-- Yarn >= v1.1 | NPM >= v6.0
+- Npm >= v6.0 | Yarn >= v1.1
 
 ## Installation
 
 ```sh
-$ yarn install
+$ npm i
 ```
 
 ## Available tasks
@@ -21,25 +21,28 @@ $ yarn install
 ```sh
 
 # Runs development server (Webpack dev server)
-$ yarn dev
+$ npm run dev
 
 # Build command
-$ yarn build
+$ npm run build
 
 # Lint with ESLint
-$ yarn lint
+$ npm run lint
 
 # Runs tests (Lint + Flow)
-$ yarn test
+$ npm run test
 
 # Runs ava tests (+ nyc)
-$ yarn ava
+$ npm run ava
 
 # Runs E2E tests
-$ yarn e2e
+$ npm run cafe
+
+# Runs E2E tests (v2)
+$ npm run cafe:espresso
 
 # Runs http-server on port 8082
-$ yarn httpserver
+$ npm httpserver
 
 ```
 
