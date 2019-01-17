@@ -10,9 +10,9 @@ createTestCafe('localhost', 1337, 1338)
     const runner = testcafe.createRunner();
 
     return runner
-      .startApp('yarn httpserver', 2000)
-      .src(['test/fixture/*.js'])
-      .browsers(['chrome', 'firefox', 'safari'])
+      .startApp('npm run httpserver', 3000)
+      .src(['test/fixture/p1.js'])
+      .browsers(['chrome'])
       .run({
         skipJsErrors     : true,
         quarantineMode   : false,

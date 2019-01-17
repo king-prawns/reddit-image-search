@@ -4,10 +4,7 @@ import { Selector } from 'testcafe';
 import { scrollBottom } from '../helpers';
 
 fixture`Homepage`
-  .page`http://localhost:8082`
-  .beforeEach(async (t) => {
-    await t.maximizeWindow();
-  });
+  .page`https://king-prawns.github.io/reddit-image-search/`;
 
 test('features', async (t) => {
   await t
