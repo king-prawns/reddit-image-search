@@ -10,7 +10,7 @@ createTestCafe('localhost', 1337, 1338)
     const runner = testcafe.createRunner();
 
     return runner
-      .src(['test/fixture/p0.js'])
+      .src(['test/fixture/v1.js'])
       .browsers(['chrome', 'firefox', 'safari'])
       .run();
   })

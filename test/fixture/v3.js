@@ -8,10 +8,10 @@ import { scrollBottom } from '../helpers';
 const searchPage = new SearchPage();
 const detailsPage = new DetailsPage();
 
-fixture`advanced`
+fixture`expert`
   .page`http://localhost:8082`;
 
-test('nice test', async (t) => {
+test('awesome test', async (t) => {
   await t
     .expect(Selector('ris-app').exists)
     .ok()
