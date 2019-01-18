@@ -12,7 +12,7 @@ createTestCafe('localhost', 1337, 1338)
     return runner
       .startApp('npm run httpserver', 3000)
       .src(['test/fixture/p1.js'])
-      .browsers(['chrome'])
+      .browsers(['chrome -incognito'])
       .run({
         skipJsErrors     : true,
         quarantineMode   : false,
