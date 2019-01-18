@@ -7,7 +7,7 @@
     "postinstall": "npm run build",
     "dev": "node ./config/dev",
     "build": "node ./config/prod",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src ./test",
     "flow": "flow",
     "test": "npm run flow && npm run lint",
     "ava": "nyc ava",
