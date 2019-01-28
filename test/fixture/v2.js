@@ -1,7 +1,6 @@
 /* eslint no-unused-expressions: 0 */
 
 import { Selector } from 'testcafe';
-import { scrollBottom } from '../helpers';
 
 fixture`advanced`
   .page`http://localhost:8082`;
@@ -23,11 +22,7 @@ test('nice test', async (t) => {
     .ok()
     .click('photo-details .close')
     .expect(Selector('photo-details').visible)
-    .notOk();
-  await scrollBottom();
-  await t
-    .expect(Selector('photo-thumb').count)
-    .gte(25)
+    .notOk()
     .click('search-bar input')
     .pressKey('ctrl+a')
     .typeText('search-bar input', 'food')

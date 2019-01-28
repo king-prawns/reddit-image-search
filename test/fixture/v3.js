@@ -9,7 +9,10 @@ const searchPage = new SearchPage();
 const detailsPage = new DetailsPage();
 
 fixture`expert`
-  .page`http://localhost:8082`;
+  .page`http://localhost:8082`
+  .beforeEach(async (t) => {
+    await t.maximizeWindow();
+  });
 
 test('awesome test', async (t) => {
   await t
@@ -32,20 +35,16 @@ test('awesome test', async (t) => {
   await scrollBottom();
   await t
     .expect(searchPage.thumbnails.count)
-    .gte(25)
-    .click(searchPage.searchBar)
-    .pressKey('ctrl+a')
-    .typeText(searchPage.searchBar, 'food')
-    .click(searchPage.searchBtn)
+    .gte(25);
+  await searchPage.doSearch('food');
+  await t
     .expect(searchPage.thumbnails.count)
     .gt(0)
     .hover(searchPage.thumbnails.nth(0))
     .expect(searchPage.thumbnails.nth(0).find('.overlay').visible)
-    .ok()
-    .click(searchPage.searchBar)
-    .pressKey('ctrl+a')
-    .typeText(searchPage.searchBar, 'rgrgtrhtrhrthtrrhtrhrthrtfdew')
-    .click(searchPage.searchBtn)
+    .ok();
+  await searchPage.doSearch('rgrgtrhtrhrthtrrhtrhrthrtfdew');
+  await t
     .expect(searchPage.alert.exists)
     .ok();
 });
