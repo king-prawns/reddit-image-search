@@ -15,6 +15,7 @@
     "cafe:americano": "node ./test/init.v1",
     "cafe:deca": "node ./test/init.v2",
     "cafe:espresso": "node ./test/init.v3",
+    "cafe:takeaway": "testcafe remote test/fixture/v1.js --qr-code",
     "httpserver": "http-server ./dist -p 8082 --silent",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
