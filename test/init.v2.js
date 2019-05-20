@@ -21,7 +21,7 @@ createTestCafe('localhost', 1337, 1338)
         assertionTimeout : 15000,
         pageLoadTimeout  : 15000,
         speed            : 1,
-        debugMode        : false,
+        debugMode        : true,
         stopOnFirstFail  : false
       });
   })
